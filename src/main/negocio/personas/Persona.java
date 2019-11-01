@@ -16,7 +16,7 @@ public class Persona {
 	}
 	
 	private void validarDatos(String nombre) {
-		if (!CadenaTexto.esVaciaONula(nombre)) {
+		if (CadenaTexto.esVaciaONula(nombre)) {
 			throw new IllegalArgumentException("Argumentos inválidos para el alta de la persona");
 		}
 	}

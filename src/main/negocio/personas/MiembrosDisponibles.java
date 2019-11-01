@@ -48,5 +48,9 @@ public class MiembrosDisponibles {
 	public List<Miembro> listar() {
 		return _miembros;
 	}
+	
+	public void vaciar() {
+		_miembros.clear();
+	}
 
 }

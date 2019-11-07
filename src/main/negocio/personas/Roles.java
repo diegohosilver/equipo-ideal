@@ -2,12 +2,22 @@ package main.negocio.personas;
 
 public enum Roles {
 	
-	LIDER_PROYECTO,
+	LIDER_PROYECTO ("Lider de Proyecto"),
 	
-	ARQUITECTO,
+	ARQUITECTO ("Arquitecto"),
 	
-	PROGRAMADOR,
+	PROGRAMADOR ("Programador"),
 	
-	TESTER
+	TESTER ("Tester");
 
+	private final String _nombreRol;
+	
+	private Roles(String s) {
+		_nombreRol = s;
+	}
+	
+	@Override
+	public String toString() {
+		return this._nombreRol;
+	}
 }

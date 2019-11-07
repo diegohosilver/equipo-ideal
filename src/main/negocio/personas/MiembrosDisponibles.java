@@ -2,11 +2,12 @@ package main.negocio.personas;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.Optional;
 
 import main.util.Utilidad.Objeto;
 
-public class MiembrosDisponibles {
+public class MiembrosDisponibles extends Observable {
 	
 	private static MiembrosDisponibles _instancia = null;
 	private List<Miembro> _miembros;
@@ -43,6 +44,8 @@ public class MiembrosDisponibles {
 		}
 		
 		_miembros.add(miembro);
+		
+		notificarObservadores();
 	}
 	
 	public List<Miembro> listar() {
@@ -51,6 +54,13 @@ public class MiembrosDisponibles {
 	
 	public void vaciar() {
 		_miembros.clear();
+		
+		notificarObservadores();
+	}
+	
+	private void notificarObservadores() {
+		setChanged();
+		notifyObservers(_miembros);
 	}
 
 }

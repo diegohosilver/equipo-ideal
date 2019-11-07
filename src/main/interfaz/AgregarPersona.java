@@ -33,23 +33,25 @@ import javax.swing.JButton;
 
 public class AgregarPersona extends JInternalFrame {
 	
-	private JTextField nombre;
-	private Roles rol;
-	private JPanel panel;
-	private JLabel lblRol;
+	private JTextField _nombre;
+	private Roles _rol;
+	private JPanel _panel;
+	private JLabel _lblRol;
+	private JComboBox _comboBox;
 	
 	public AgregarPersona() {
-		rol = Roles.TESTER;
+		super("Agregar Persona");
 		
-		inicializarLayout();
+		_rol = Roles.TESTER;
 		
+		inicializarLayout();		
 		cargarControles();		
 	}
 	
 	private void inicializarLayout() {
-		panel = new JPanel();
-		getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(new FormLayout(new ColumnSpec[] {
+		_panel = new JPanel();
+		getContentPane().add(_panel, BorderLayout.CENTER);
+		_panel.setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(169dlu;default)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
@@ -71,42 +73,42 @@ public class AgregarPersona extends JInternalFrame {
 	
 	private void cargarControles() {
 		JLabel lblNewLabel = new JLabel("Nombre y apellido:");
-		panel.add(lblNewLabel, "2, 2");
+		_panel.add(lblNewLabel, "2, 2");
 		
-		nombre = new JTextField();
-		panel.add(nombre, "2, 4, fill, default");
-		nombre.setColumns(10);
+		_nombre = new JTextField();
+		_panel.add(_nombre, "2, 4, fill, default");
+		_nombre.setColumns(10);
 		
-		lblRol = new JLabel("Rol:");
-		panel.add(lblRol, "2, 6");
+		_lblRol = new JLabel("Rol:");
+		_panel.add(_lblRol, "2, 6");
 		
-		panel.add(Combo.generar(new Dimensiones(5, 28, 130, 20), listarRoles(), new ActionListener() {
+		_comboBox = Combo.generar(new Dimensiones(5, 28, 130, 20), listarRoles(), new ActionListener() {
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			@Override
 			public void actionPerformed(ActionEvent e) {			
 				JComboBox c = (JComboBox) e.getSource();
 				ComboItem<Roles> item = (ComboItem<Roles>) c.getSelectedItem();
 				
-				rol = item.obtenerId();
+				_rol = item.obtenerId();
 			}
-		}), "2, 8, fill, default");
+		});
 		
-		panel.add(Boton.generar("OK", new Dimensiones(0, 0, 0, 0), new ActionListener() {
+		_panel.add(_comboBox, "2, 8, fill, default");
+		
+		_panel.add(Boton.generar("OK", new Dimensiones(0, 0, 0, 0), new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				boolean exito = agregarMiembro();
-				
-				if (exito) ocultarFrame();
+				agregarMiembro();
 			}
 			
 		}), "4, 10");
 		
-		panel.add(Boton.generar("Cancelar", new Dimensiones(0, 0, 0, 0), new ActionListener() {
+		_panel.add(Boton.generar("Cancelar", new Dimensiones(0, 0, 0, 0), new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				ocultarFrame();
+				setVisible(false);
 			}
 			
 		}), "6, 10");
@@ -123,29 +125,27 @@ public class AgregarPersona extends JInternalFrame {
 		return items;
 	}
 
-	private boolean agregarMiembro() {
+	private void agregarMiembro() {
 		if(nombreEsValido()) {
 			MiembrosDisponibles miembros = MiembrosDisponibles.obtenerInstancia();
 			
-			miembros.agregar(new Miembro(rol, nombre.getText()));
+			miembros.agregar(new Miembro(_rol, _nombre.getText()));
 			
 			Alerta.mostrar("Miembro registrado con éxito");
 			
-			return true;
+			limpiar();
 		}
-		
-		return false;
 	}
 	
 	private boolean nombreEsValido() {
-		if (Utilidad.CadenaTexto.esVaciaONula(nombre.getText())) {
+		if (Utilidad.CadenaTexto.esVaciaONula(_nombre.getText())) {
 			Alerta.mostrar("Nombre no puede estar vacío");
 			return false;
 		}
 		
 		String pattern = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
 		Pattern p = Pattern.compile(pattern);
-		Matcher m = p.matcher(nombre.getText());
+		Matcher m = p.matcher(_nombre.getText());
 		
 		if (!m.matches()) {
 			Alerta.mostrar("Formato de nombre inválido");
@@ -155,7 +155,9 @@ public class AgregarPersona extends JInternalFrame {
 		return true;
 	}
 	
-	private void ocultarFrame() {
-		setVisible(false);
+	private void limpiar() {
+		_nombre.setText("");
+		_rol = Roles.TESTER;
+		_comboBox.setSelectedIndex(0);
 	}
 }

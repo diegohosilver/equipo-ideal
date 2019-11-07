@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyVetoException;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -18,8 +17,9 @@ import javax.swing.JMenuItem;
 
 public class PantallPrincipal extends JFrame {
 
-	private JDesktopPane desktop;
-	private AgregarPersona agregarPersona;
+	private JDesktopPane _desktop;
+	private AgregarPersona _agregarPersona;
+	private ListarPersonas _listarPersonas;
 
 	/**
 	 * Launch the application.
@@ -58,13 +58,13 @@ public class PantallPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (Utilidad.Objeto.esNulo(agregarPersona)) {
-						agregarPersona = new AgregarPersona();
-						agregarPersona.setBounds(15, 15, 475, 180);
-						desktop.add(agregarPersona);
+					if (Utilidad.Objeto.esNulo(_agregarPersona)) {
+						_agregarPersona = new AgregarPersona();
+						_agregarPersona.setBounds(15, 15, 475, 180);
+						_desktop.add(_agregarPersona);
 					}
 					
-					agregarPersona.setVisible(true);
+					_agregarPersona.setVisible(true);
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -74,20 +74,38 @@ public class PantallPrincipal extends JFrame {
 		mnPersonas.add(mntmAgregar);
 		
 		JMenuItem mntmListar = new JMenuItem("Listar");
+		mntmListar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (Utilidad.Objeto.esNulo(_listarPersonas)) {
+						_listarPersonas = new ListarPersonas();
+						_listarPersonas.setBounds(15, 15, 385, 270);
+						_desktop.add(_listarPersonas);
+					}
+					
+					_listarPersonas.setVisible(true);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+		});
 		mnPersonas.add(mntmListar);
 		
 		JMenu mnEquipo = new JMenu("Equipo");
 		menuBar.add(mnEquipo);
 		
-		JMenu mnRequisitos = new JMenu("Establecer requisitos");
+		JMenuItem mnRequisitos = new JMenuItem("Establecer requisitos");
 		mnEquipo.add(mnRequisitos);
 		
-		JMenu mnGestionar = new JMenu("Gestionar");
+		JMenuItem mnGestionar = new JMenuItem("Gestionar");
 		mnEquipo.add(mnGestionar);
 		
-		desktop = new Desktop();	
-		desktop.setBackground(Color.WHITE);
-		setContentPane(desktop);
+		_desktop = new Desktop();	
+		_desktop.setBackground(Color.WHITE);
+		setContentPane(_desktop);
 	}
 
 }

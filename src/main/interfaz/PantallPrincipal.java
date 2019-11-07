@@ -1,14 +1,16 @@
 package main.interfaz;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
-import main.interfaz.controles.Panel;
+import main.interfaz.controles.Desktop;
+import main.util.Utilidad;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -16,7 +18,8 @@ import javax.swing.JMenuItem;
 
 public class PantallPrincipal extends JFrame {
 
-	private JPanel contentPane;
+	private JDesktopPane desktop;
+	private AgregarPersona agregarPersona;
 
 	/**
 	 * Launch the application.
@@ -38,6 +41,8 @@ public class PantallPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public PantallPrincipal() {
+		super("Team ideal");
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 842, 593);
 		
@@ -48,6 +53,24 @@ public class PantallPrincipal extends JFrame {
 		menuBar.add(mnPersonas);
 		
 		JMenuItem mntmAgregar = new JMenuItem("Agregar");
+		mntmAgregar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (Utilidad.Objeto.esNulo(agregarPersona)) {
+						agregarPersona = new AgregarPersona();
+						agregarPersona.setBounds(15, 15, 475, 180);
+						desktop.add(agregarPersona);
+					}
+					
+					agregarPersona.setVisible(true);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+		});
 		mnPersonas.add(mntmAgregar);
 		
 		JMenuItem mntmListar = new JMenuItem("Listar");
@@ -61,11 +84,10 @@ public class PantallPrincipal extends JFrame {
 		
 		JMenu mnGestionar = new JMenu("Gestionar");
 		mnEquipo.add(mnGestionar);
-		contentPane = new Panel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		contentPane.setBackground(Color.WHITE);
-		setContentPane(contentPane);
+		
+		desktop = new Desktop();	
+		desktop.setBackground(Color.WHITE);
+		setContentPane(desktop);
 	}
 
 }

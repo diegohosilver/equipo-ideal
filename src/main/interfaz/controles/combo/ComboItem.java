@@ -1,15 +1,15 @@
 package main.interfaz.controles.combo;
 
-public class ComboItem {
-	private int _id;
+public class ComboItem<T> {
+	private T _id;
 	private String _descripcion;
 
-	public ComboItem(int id, String descripcion) {
+	public ComboItem(T id, String descripcion) {
 		this._id = id;
 		this._descripcion = descripcion;
 	}
 
-	public int obtenerId() {
+	public T obtenerId() {
 		return _id;
 	}
 

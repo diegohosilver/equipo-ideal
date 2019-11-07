@@ -26,7 +26,7 @@ public class Boton {
 	public static JButton generar(String texto, Dimensiones dimensiones, ActionListener evento) {
 		Control.validarEvento(evento);
 		
-		JButton boton = generarBotonConPropiedades(texto, dimensiones, Font.BOLD, 15F);
+		JButton boton = generarBotonConPropiedades(texto, dimensiones, Font.BOLD, 12F);
 		boton.addActionListener(evento);
 		return boton;
 	}

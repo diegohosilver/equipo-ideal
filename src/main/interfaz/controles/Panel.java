@@ -1,25 +1,11 @@
 package main.interfaz.controles;
-
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import main.interfaz.controles.general.Bordes;
 import main.interfaz.controles.general.Dimensiones;
 import main.util.Utilidad.Objeto;
 
-public class Panel extends JPanel {
-	private Image image;
-	
-	public Panel() {
-		getImage();
-	}
-	
+public class Panel {
 	private static void validarDimensiones(Dimensiones dimensiones) {
 		if (Objeto.esNulo(dimensiones)) {
 			throw new IllegalArgumentException("Dimensiones no puede estar vacio");
@@ -56,21 +42,4 @@ public class Panel extends JPanel {
 		
 		return panel;
 	}
-
-	private void getImage() {
-		try {
-			image = ImageIO.read(new File("logo.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Override
-    public void paintComponent(Graphics g){
-      super.paintComponent(g);
-      Graphics2D g2d = (Graphics2D) g;
-      int x = (this.getWidth() - image.getWidth(null)) / 2;
-      int y = (this.getHeight() - image.getHeight(null)) / 2;
-      g2d.drawImage(image, x, y, null);
-    }
 }

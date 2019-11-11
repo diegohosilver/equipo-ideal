@@ -44,7 +44,7 @@ public class PantallPrincipal extends JFrame {
 		super("Team ideal");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 842, 593);
+		setBounds(100, 100, 1280, 720);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -81,7 +81,7 @@ public class PantallPrincipal extends JFrame {
 				try {
 					if (Utilidad.Objeto.esNulo(_listarPersonas)) {
 						_listarPersonas = new ListarPersonas();
-						_listarPersonas.setBounds(15, 15, 385, 270);
+						_listarPersonas.setBounds(15, 15, 850, 270);
 						_desktop.add(_listarPersonas);
 					}
 					

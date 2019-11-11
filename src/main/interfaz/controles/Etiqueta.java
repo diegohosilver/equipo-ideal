@@ -23,7 +23,7 @@ public class Etiqueta {
 		CadenaTexto.validarVacia(texto);	
 		Control.validarDimensiones(dimensiones);
 		
-		return generarEtiquetaConPropiedades(texto, dimensiones, Font.BOLD, 15F);
+		return generarEtiquetaConPropiedades(texto, dimensiones, Font.PLAIN, 12F);
 	}
 	
 }

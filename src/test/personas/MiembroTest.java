@@ -13,22 +13,22 @@ import main.util.Utilidad.Guid;
 public class MiembroTest {
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void MiembroSinNombreTest() {
+	public void miembroSinNombreTest() {
 		new Miembro(Roles.ARQUITECTO, null);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void MiembroNombreVacioTest() {
+	public void miembroNombreVacioTest() {
 		new Miembro(Roles.ARQUITECTO, "");
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void MiembroSinRolTest() {
+	public void miembroSinRolTest() {
 		new Miembro(null, "Ricardo Mora");
 	}
 	
 	@Test
-	public void NuevoMiembroTest() {
+	public void nuevoMiembroTest() {
 		Miembro m = new Miembro(Roles.PROGRAMADOR, "Diego Silvera");
 		
 		assertEquals("Diego Silvera", m.obtenerNombre());

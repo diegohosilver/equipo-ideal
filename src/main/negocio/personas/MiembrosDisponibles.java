@@ -2,6 +2,7 @@ package main.negocio.personas;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Observable;
 import java.util.Optional;
 
@@ -33,9 +34,23 @@ public class MiembrosDisponibles extends Observable {
 	}
 	
 	private boolean existeMiembro(String id) {
-		Optional<Miembro> buscar = _miembros.stream().filter(x -> x.obtenerId() == id).findFirst();
+		Optional<Miembro> buscar = buscarPorId(id);
 		
 		return buscar.isPresent();
+	}
+	
+	private Optional<Miembro> buscarPorId(String id) {
+		return _miembros.stream().filter(x -> x.obtenerId() == id).findFirst();
+	}
+	
+	public Miembro obtener(String id) {
+		Optional<Miembro> buscar = buscarPorId(id);
+		
+		if (!buscar.isPresent()) {
+			throw new NoSuchElementException("No se encontró ningún miembro con el id " + id);
+		}
+		
+		return buscar.get();
 	}
 	
 	public void agregar(Miembro miembro) {

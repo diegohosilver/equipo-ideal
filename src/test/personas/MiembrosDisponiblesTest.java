@@ -1,5 +1,7 @@
 package test.personas;
 
+import java.util.NoSuchElementException;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -9,14 +11,22 @@ import org.junit.Test;
 import main.negocio.personas.Miembro;
 import main.negocio.personas.MiembrosDisponibles;
 import main.negocio.personas.Roles;
+import main.util.Utilidad;
 
 public class MiembrosDisponiblesTest {
 	
-	@Test(expected = IllegalArgumentException.class)
+	@Test (expected = IllegalArgumentException.class)
 	public void agregarMiembroNuloTest() {
 		MiembrosDisponibles miembrosDisponibles = MiembrosDisponibles.obtenerInstancia();
 		
 		miembrosDisponibles.agregar(null);
+	}
+	
+	@Test (expected = NoSuchElementException.class)
+	public void obtenerMiembroInexistenteTest() {
+		MiembrosDisponibles miembrosDisponibles = MiembrosDisponibles.obtenerInstancia();
+		
+		miembrosDisponibles.obtener(Utilidad.Guid.generar());
 	}
 	
 	@Test

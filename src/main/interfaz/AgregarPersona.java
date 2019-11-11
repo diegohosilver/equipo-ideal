@@ -19,6 +19,7 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import main.interfaz.controles.Alerta;
 import main.interfaz.controles.Boton;
+import main.interfaz.controles.Etiqueta;
 import main.interfaz.controles.combo.Combo;
 import main.interfaz.controles.combo.ComboItem;
 import main.interfaz.controles.general.Dimensiones;
@@ -36,7 +37,6 @@ public class AgregarPersona extends JInternalFrame {
 	private JTextField _nombre;
 	private Roles _rol;
 	private JPanel _panel;
-	private JLabel _lblRol;
 	private JComboBox _comboBox;
 	
 	public AgregarPersona() {
@@ -72,15 +72,13 @@ public class AgregarPersona extends JInternalFrame {
 	}
 	
 	private void cargarControles() {
-		JLabel lblNewLabel = new JLabel("Nombre y apellido:");
-		_panel.add(lblNewLabel, "2, 2");
+		_panel.add(Etiqueta.generar("Nombre y apellido:", new Dimensiones(0, 0, 0, 0)), "2, 2");
 		
 		_nombre = new JTextField();
 		_panel.add(_nombre, "2, 4, fill, default");
 		_nombre.setColumns(10);
 		
-		_lblRol = new JLabel("Rol:");
-		_panel.add(_lblRol, "2, 6");
+		_panel.add(Etiqueta.generar("Rol:", new Dimensiones(0, 0, 0, 0)), "2, 6");
 		
 		_comboBox = Combo.generar(new Dimensiones(5, 28, 130, 20), listarRoles(), new ActionListener() {
 			@SuppressWarnings({ "rawtypes", "unchecked" })

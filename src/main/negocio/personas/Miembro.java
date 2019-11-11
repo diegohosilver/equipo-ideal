@@ -23,5 +23,10 @@ public class Miembro extends Persona {
 	public Roles obtenerRol() {
 		return _rol;
 	}
+	
+	@Override
+	public String toString() {
+		return this.obtenerNombre() + " - " + this.obtenerRol();
+	}
 
 }

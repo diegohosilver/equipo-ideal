@@ -7,7 +7,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import main.interfaz.controles.general.Dimensiones;
-import main.interfaz.util.Varios;
+import main.util.Utilidad.Objeto;
 
 public class Texto {
 	
@@ -25,11 +25,11 @@ public class Texto {
 	}
 	
 	public static JTextField generar(Dimensiones dimensiones, Color colorFondo, boolean editable) {
-		if (Varios.objetoEsNulo(dimensiones)) {
+		if (Objeto.esNulo(dimensiones)) {
 			throw new IllegalArgumentException("Dimensiones no puede estar vacio");
 		}
 		
-		if (Varios.objetoEsNulo(colorFondo)) {
+		if (Objeto.esNulo(colorFondo)) {
 			throw new IllegalArgumentException("Color no puede estar vacio");
 		}
 		

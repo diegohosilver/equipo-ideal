@@ -6,13 +6,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import main.interfaz.controles.general.Dimensiones;
-import main.interfaz.util.Varios;
+import main.util.Utilidad.CadenaTexto;
+import main.util.Utilidad.Control;
 
 public class Boton {
 
 	private static JButton generarBotonConPropiedades(String texto, Dimensiones dimensiones, int fuente, float tamanio) {
-		Varios.validarTextoVacio(texto);	
-		Varios.validarDimensiones(dimensiones);
+		CadenaTexto.validarVacia(texto);	
+		Control.validarDimensiones(dimensiones);
 		
 		JButton boton = new JButton(texto);
 		
@@ -23,9 +24,9 @@ public class Boton {
 	}
 	
 	public static JButton generar(String texto, Dimensiones dimensiones, ActionListener evento) {
-		Varios.validarEvento(evento);
+		Control.validarEvento(evento);
 		
-		JButton boton = generarBotonConPropiedades(texto, dimensiones, Font.BOLD, 15F);
+		JButton boton = generarBotonConPropiedades(texto, dimensiones, Font.BOLD, 12F);
 		boton.addActionListener(evento);
 		return boton;
 	}

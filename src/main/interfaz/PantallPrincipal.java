@@ -20,6 +20,7 @@ public class PantallPrincipal extends JFrame {
 	private JDesktopPane _desktop;
 	private AgregarPersona _agregarPersona;
 	private ListarPersonas _listarPersonas;
+	private EstablecerRequisitos _establecerRequisitos;
 
 	/**
 	 * Launch the application.
@@ -98,6 +99,25 @@ public class PantallPrincipal extends JFrame {
 		menuBar.add(mnEquipo);
 		
 		JMenuItem mnRequisitos = new JMenuItem("Establecer requisitos");
+		mnRequisitos.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (Utilidad.Objeto.esNulo(_establecerRequisitos)) {
+						_establecerRequisitos = new EstablecerRequisitos();
+						_establecerRequisitos.setBounds(15, 15, 900, 280);
+						_desktop.add(_establecerRequisitos);
+					}
+					
+					_establecerRequisitos.setVisible(true);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+				
+			}
+			
+		});
 		mnEquipo.add(mnRequisitos);
 		
 		JMenuItem mnGestionar = new JMenuItem("Gestionar");

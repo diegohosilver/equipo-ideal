@@ -4,13 +4,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.swing.SwingWorker;
+
 import main.negocio.personas.Miembro;
 import main.negocio.personas.MiembrosDisponibles;
 import main.negocio.personas.MiembrosIncompatibles;
 import main.negocio.personas.Roles;
 import main.util.Utilidad.Objeto;
 
-public class EquipoIdeal {
+public class EquipoIdeal extends SwingWorker<Boolean, Object> {
 	private static EquipoIdeal _instancia = null;
 	
 	private Requisitos _requisitos;
@@ -45,25 +47,7 @@ public class EquipoIdeal {
 	}
 	
 	public List<Miembro> obtenerEquipo() {
-		armarEquipo();
-		
-		// Verificar si los requisitos fueron satisfechos
-		_equipoCumpleConRequisitos = true;
-		
-		for (Roles rol : Roles.values()) {
-			long cantidadEnRol = cantidadMiembrosEnRol(rol);
-			_equipoCumpleConRequisitos = _equipoCumpleConRequisitos && 
-										(
-												cantidadEnRol >= _requisitos.obtenerCantidadSegunRol(rol, Cantidad.MINIMA) &&
-												cantidadEnRol <= _requisitos.obtenerCantidadSegunRol(rol, Cantidad.MAXIMA)
-										);
-		}
-		
 		return _miembrosDelEquipo;
-	}
-	
-	public boolean equipoCumpleConRequisitos() {
-		return _equipoCumpleConRequisitos;
 	}
 	
 	private void armarEquipo() {
@@ -109,5 +93,25 @@ public class EquipoIdeal {
 	
 	private long cantidadMiembrosEnRol(Roles rol) {
 		return _miembrosDelEquipo.stream().filter(x -> x.obtenerRol() == rol).count();
+	}
+	
+	@Override
+	protected Boolean doInBackground() throws Exception 
+	{
+		armarEquipo();
+		
+		// Verificar si los requisitos fueron satisfechos
+		_equipoCumpleConRequisitos = true;
+		
+		for (Roles rol : Roles.values()) {
+			long cantidadEnRol = cantidadMiembrosEnRol(rol);
+			_equipoCumpleConRequisitos = _equipoCumpleConRequisitos && 
+										(
+												cantidadEnRol >= _requisitos.obtenerCantidadSegunRol(rol, Cantidad.MINIMA) &&
+												cantidadEnRol <= _requisitos.obtenerCantidadSegunRol(rol, Cantidad.MAXIMA)
+										);
+		}
+		
+		return _equipoCumpleConRequisitos;
 	}
 }

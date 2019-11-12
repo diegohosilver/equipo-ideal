@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 
 import main.interfaz.controles.Desktop;
 import main.util.Utilidad;
+import main.util.Utilidad.Objeto;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -21,6 +22,7 @@ public class PantallPrincipal extends JFrame {
 	private AgregarPersona _agregarPersona;
 	private ListarPersonas _listarPersonas;
 	private EstablecerRequisitos _establecerRequisitos;
+	private GenerarEquipo _generarEquipo;
 
 	/**
 	 * Launch the application.
@@ -121,6 +123,25 @@ public class PantallPrincipal extends JFrame {
 		mnEquipo.add(mnRequisitos);
 		
 		JMenuItem mnGestionar = new JMenuItem("Gestionar");
+		mnGestionar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (Objeto.esNulo(_generarEquipo)) {
+						_generarEquipo = new GenerarEquipo();
+						_generarEquipo.setBounds(15, 15, 850, 270);
+						_desktop.add(_generarEquipo);
+					}
+					
+					_generarEquipo.setVisible(true);
+				} catch(Exception ex) {
+					ex.printStackTrace();
+				}
+				
+			}
+			
+		});
 		mnEquipo.add(mnGestionar);
 		
 		_desktop = new Desktop();	

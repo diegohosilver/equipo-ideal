@@ -1,7 +1,7 @@
 package main.negocio.equipo;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Observer;
 import java.util.stream.Collectors;
 
 import javax.swing.SwingWorker;
@@ -16,18 +16,21 @@ public class EquipoIdeal extends SwingWorker<Boolean, Object> {
 	private static EquipoIdeal _instancia = null;
 	
 	private Requisitos _requisitos;
-	private List<Miembro> _miembrosDelEquipo;
 	private MiembrosDisponibles _miembrosDisponibles;
 	private MiembrosIncompatibles _miembrosIncompatibles;
 	
 	private boolean _existenIncompatibles;
 	private boolean _equipoCumpleConRequisitos;
 	
+	private Equipo _equipo;
+	
 	private EquipoIdeal() {
 		_miembrosDisponibles = MiembrosDisponibles.obtenerInstancia();
 		_miembrosIncompatibles = MiembrosIncompatibles.obtenerInstancia();
 		
 		_existenIncompatibles = _miembrosIncompatibles.listar().size() > 0;
+		
+		_equipo = new Equipo();
 	}
 	
 	public static EquipoIdeal obtenerInstancia() {
@@ -46,8 +49,16 @@ public class EquipoIdeal extends SwingWorker<Boolean, Object> {
 		_requisitos = requisitos;
 	}
 	
-	public List<Miembro> obtenerEquipo() {
-		return _miembrosDelEquipo;
+	public Requisitos obtenerRequisitos() {
+		return _requisitos;
+	}
+	
+	public boolean sePuedeEjecutar() {
+		return (!Objeto.esNulo(_requisitos) && _miembrosDisponibles.listar().size() > 0);
+	}
+	
+	public void agregarObservador(Observer observador) {
+		_equipo.addObserver(observador);
 	}
 	
 	private void armarEquipo() {
@@ -64,16 +75,16 @@ public class EquipoIdeal extends SwingWorker<Boolean, Object> {
 			
 			for(Miembro miembro : miembrosDelRol) {
 				
-				if (!miembroExisteEnEquipo(miembro)) {
+				if (!_equipo.existeMiembro(miembro)) {
 					
 					if (_existenIncompatibles) {
-						if (!_miembrosIncompatibles.esIncompatibleConAlguno(miembro.obtenerId(), obtenerIdsDelEquipo())) {
-							_miembrosDelEquipo.add(miembro);
+						if (!_miembrosIncompatibles.esIncompatibleConAlguno(miembro.obtenerId(), _equipo.obtenerIdsDelEquipo())) {
+							_equipo.agregarMiembro(miembro);
 							break;
 						}
 					}
 					else {
-						_miembrosDelEquipo.add(miembro);
+						_equipo.agregarMiembro(miembro);
 						break;
 					}
 				}
@@ -81,30 +92,18 @@ public class EquipoIdeal extends SwingWorker<Boolean, Object> {
 		}
 	}
 	
-	private boolean miembroExisteEnEquipo(Miembro miembro) {
-		Optional<Miembro> busqueda = _miembrosDelEquipo.stream().filter(x -> x.obtenerId() == miembro.obtenerId()).findFirst();
-		
-		return busqueda.isPresent();
-	}
-	
-	private List<String> obtenerIdsDelEquipo() {
-		return _miembrosDelEquipo.stream().map(x -> x.obtenerId()).collect(Collectors.toList());
-	}
-	
-	private long cantidadMiembrosEnRol(Roles rol) {
-		return _miembrosDelEquipo.stream().filter(x -> x.obtenerRol() == rol).count();
-	}
-	
 	@Override
 	protected Boolean doInBackground() throws Exception 
 	{
+		_equipo.vaciar();
+		
 		armarEquipo();
 		
 		// Verificar si los requisitos fueron satisfechos
 		_equipoCumpleConRequisitos = true;
 		
 		for (Roles rol : Roles.values()) {
-			long cantidadEnRol = cantidadMiembrosEnRol(rol);
+			long cantidadEnRol = _equipo.obtenerCantidadMiembrosEnRol(rol);
 			_equipoCumpleConRequisitos = _equipoCumpleConRequisitos && 
 										(
 												cantidadEnRol >= _requisitos.obtenerCantidadSegunRol(rol, Cantidad.MINIMA) &&
@@ -113,5 +112,10 @@ public class EquipoIdeal extends SwingWorker<Boolean, Object> {
 		}
 		
 		return _equipoCumpleConRequisitos;
+	}
+	
+	@Override 
+	protected void done( ) {
+		_equipo.notificarObservadores();
 	}
 }

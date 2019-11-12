@@ -69,6 +69,16 @@ public class MiembrosIncompatibles {
 		return _miembros.entrySet().stream().anyMatch(x -> (x.getKey() == id1 && x.getValue() == id2) || (x.getKey() == id2 && x.getValue() == id1));
 	}
 	
+	public boolean esIncompatibleConAlguno(String id, List<String> ids) {
+		for (String otroId : ids) {
+			if (yaSonIncompatibles(id, otroId)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	public void vaciar() {
 		_miembros.clear();
 	}

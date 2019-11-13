@@ -87,6 +87,7 @@ public class GenerarEquipo extends JInternalFrame implements Observer {
 			public void actionPerformed(ActionEvent e) {
 				if (!_equipoIdeal.sePuedeEjecutar()) {
 					Alerta.mostrar("No se puede generar el equipo. Compruebe si cargó las personas y los requisitos correctamente.");
+					return;
 				}
 				
 				_equipoIdeal.execute();
@@ -101,5 +102,9 @@ public class GenerarEquipo extends JInternalFrame implements Observer {
 		List<Miembro> miembros = (List<Miembro>) listaMiembros;
 		
 		_listaEquipo.setListData(miembros.toArray());
+		
+		String mensaje = _equipoIdeal.cumpleConRequisitos() ? "El mismo cumple" : "El mismo no cumple";
+		
+		Alerta.mostrar("Se generó un equipo. " + mensaje + " con los requisitos");
 	}
 }

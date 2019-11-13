@@ -2,6 +2,7 @@ package main.negocio.equipo;
 
 import javafx.util.Pair;
 import main.negocio.personas.Roles;
+import main.util.Utilidad.Objeto;
 
 public class Requisitos {
 	private int _cantidadTotalMinima;
@@ -12,6 +13,11 @@ public class Requisitos {
 	private Pair<Integer, Integer> _cantidadLideres;
 	
 	public Requisitos(Pair<Integer, Integer> testers, Pair<Integer, Integer> programadores, Pair<Integer, Integer> arquitectos, Pair<Integer, Integer> lideres) {
+		validarPar(testers);
+		validarPar(programadores);
+		validarPar(arquitectos);
+		validarPar(lideres);
+		
 		_cantidadTotalMinima = testers.getKey() + programadores.getKey() + arquitectos.getKey() + lideres.getKey();
 		_cantidadTotalMaxima = testers.getValue() + programadores.getValue() + arquitectos.getValue() + lideres.getValue();
 
@@ -21,6 +27,20 @@ public class Requisitos {
 		_cantidadLideres = lideres;
 		
 		validarRequisitos();
+	}
+	
+	private void validarPar(Pair<Integer, Integer> par) {
+		if (Objeto.esNulo(par) || Objeto.esNulo(par.getKey()) || Objeto.esNulo(par.getValue())) {
+			throw new IllegalArgumentException("Par inválido");
+		}
+		
+		if (par.getKey() > par.getValue()) {
+			throw new IllegalArgumentException("El mínimo no puede ser mayor al máximo");
+		}
+		
+		if (par.getKey() < 0 || par.getValue() < 0 ) {
+			throw new IllegalArgumentException("El par no puede contener valores negativos");
+		}
 	}
 	
 	private void validarRequisitos() {

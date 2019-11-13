@@ -57,6 +57,10 @@ public class EquipoIdeal extends SwingWorker<Boolean, Object> {
 		return (!Objeto.esNulo(_requisitos) && _miembrosDisponibles.listar().size() > 0);
 	}
 	
+	public boolean cumpleConRequisitos() {
+		return _equipoCumpleConRequisitos;
+	}
+	
 	public void agregarObservador(Observer observador) {
 		_equipo.addObserver(observador);
 	}

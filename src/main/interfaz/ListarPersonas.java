@@ -54,14 +54,16 @@ public class ListarPersonas extends JInternalFrame implements Observer {
 	
 	private void inicializarLayout() {
 		_panel = new JPanel();
-		getContentPane().add(_panel, BorderLayout.SOUTH);
+		getContentPane().add(_panel, BorderLayout.CENTER);
 		_panel.setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(169dlu;default)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),},
+				ColumnSpec.decode("max(213dlu;default):grow"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,},
 			new RowSpec[] {
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,

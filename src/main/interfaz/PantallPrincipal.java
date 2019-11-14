@@ -63,7 +63,7 @@ public class PantallPrincipal extends JFrame {
 				try {
 					if (Utilidad.Objeto.esNulo(_agregarPersona)) {
 						_agregarPersona = new AgregarPersona();
-						_agregarPersona.setBounds(15, 15, 475, 180);
+						_agregarPersona.setBounds(15, 15, 585, 190);
 						_desktop.add(_agregarPersona);
 					}
 					
@@ -84,7 +84,7 @@ public class PantallPrincipal extends JFrame {
 				try {
 					if (Utilidad.Objeto.esNulo(_listarPersonas)) {
 						_listarPersonas = new ListarPersonas();
-						_listarPersonas.setBounds(15, 15, 850, 270);
+						_listarPersonas.setBounds(15, 15, 900, 270);
 						_desktop.add(_listarPersonas);
 					}
 					

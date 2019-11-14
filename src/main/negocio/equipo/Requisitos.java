@@ -58,7 +58,7 @@ public class Requisitos {
 	}
 	
 	public int obtenerCantidadProgramadores(Cantidad cantidad) {
-		return cantidad == Cantidad.MINIMA ? _cantidadProgramadores.getKey() : _cantidadTesters.getValue();
+		return cantidad == Cantidad.MINIMA ? _cantidadProgramadores.getKey() : _cantidadProgramadores.getValue();
 	}
 	
 	public int obtenerCantidadArquitectos(Cantidad cantidad) {

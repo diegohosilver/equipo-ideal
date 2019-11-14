@@ -34,7 +34,7 @@ public class GenerarEquipo extends JInternalFrame implements Observer {
 		super("Generar equipo");
 		
 		_equipoIdeal = EquipoIdeal.obtenerInstancia();
-		_equipoIdeal.agregarObservador(this);
+		_equipoIdeal.addObserver(this);
 		
 		inicializarLayout();
 		inicializarControles();

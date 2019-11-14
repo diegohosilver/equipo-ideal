@@ -2,7 +2,6 @@ package main.negocio.equipo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -10,7 +9,7 @@ import main.negocio.personas.Miembro;
 import main.negocio.personas.Roles;
 import main.util.Utilidad.Objeto;
 
-public class Equipo extends Observable {
+public class Equipo {
 	private List<Miembro> _miembros;
 	
 	public Equipo() {
@@ -31,6 +30,10 @@ public class Equipo extends Observable {
 		return busqueda.isPresent();
 	}
 	
+	public List<Miembro> listar() {
+		return _miembros;
+	}
+	
 	public List<String> obtenerIdsDelEquipo() {
 		return _miembros.stream().map(x -> x.obtenerId()).collect(Collectors.toList());
 	}
@@ -41,10 +44,5 @@ public class Equipo extends Observable {
 	
 	public void vaciar() {
 		_miembros.clear();
-	}
-	
-	public void notificarObservadores() {
-		setChanged();
-		notifyObservers(_miembros);
 	}
 }

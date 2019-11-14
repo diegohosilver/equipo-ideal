@@ -39,6 +39,10 @@ public class Equipo extends Observable {
 		return _miembros.stream().filter(x -> x.obtenerRol() == rol).count();
 	}
 	
+	public void vaciar() {
+		_miembros.clear();
+	}
+	
 	public void notificarObservadores() {
 		setChanged();
 		notifyObservers(_miembros);

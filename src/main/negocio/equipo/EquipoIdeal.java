@@ -27,6 +27,8 @@ public class EquipoIdeal {
 	private EquipoIdeal() {
 		_miembrosDisponibles = MiembrosDisponibles.obtenerInstancia();
 		_miembrosIncompatibles = MiembrosIncompatibles.obtenerInstancia();
+		
+		_equipo = new Equipo();
 	}
 	
 	public static EquipoIdeal obtenerInstancia() {
@@ -49,10 +51,6 @@ public class EquipoIdeal {
 		return _requisitos;
 	}
 	
-	public Equipo obtenerEquipo() {
-		return _equipo;
-	}
-	
 	public boolean sePuedeEjecutar() {
 		return (!Objeto.esNulo(_requisitos) && _miembrosDisponibles.listar().size() > 0);
 	}
@@ -66,7 +64,7 @@ public class EquipoIdeal {
 	}
 	
 	private void armarEquipo() {
-		_equipo = new Equipo();
+		_equipo.vaciar();
 		
 		_existenIncompatibles = _miembrosIncompatibles.listar().size() > 0;
 		

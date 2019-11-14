@@ -23,6 +23,7 @@ import main.interfaz.controles.Etiqueta;
 import main.interfaz.controles.combo.Combo;
 import main.interfaz.controles.combo.ComboItem;
 import main.interfaz.controles.general.Dimensiones;
+import main.negocio.personas.GeneradorMiembros;
 import main.negocio.personas.Miembro;
 import main.negocio.personas.MiembrosDisponibles;
 import main.negocio.personas.Roles;
@@ -110,6 +111,19 @@ public class AgregarPersona extends JInternalFrame {
 			}
 			
 		}), "4, 10");
+
+		_panel.add(Boton.generar("Autogenerar personas", new Dimensiones(0, 0, 0, 0), new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				GeneradorMiembros g = GeneradorMiembros.obtenerInstancia();
+				
+				g.generarMiembros();
+				
+				Alerta.mostrar("Se generaron 10 personas para cada rol.");
+			}
+			
+		}), "6, 4");
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })

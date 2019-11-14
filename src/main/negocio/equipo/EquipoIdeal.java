@@ -1,7 +1,7 @@
 package main.negocio.equipo;
 
 import java.util.List;
-import java.util.Observer;
+import java.util.Observable;
 import java.util.stream.Collectors;
 
 import javax.swing.SwingWorker;
@@ -12,7 +12,7 @@ import main.negocio.personas.MiembrosIncompatibles;
 import main.negocio.personas.Roles;
 import main.util.Utilidad.Objeto;
 
-public class EquipoIdeal {
+public class EquipoIdeal extends Observable {
 	private static EquipoIdeal _instancia = null;
 	
 	private Requisitos _requisitos;
@@ -57,10 +57,6 @@ public class EquipoIdeal {
 	
 	public boolean cumpleConRequisitos() {
 		return _equipoCumpleConRequisitos;
-	}
-	
-	public void agregarObservador(Observer observador) {
-		_equipo.addObserver(observador);
 	}
 	
 	private void armarEquipo() {
@@ -127,8 +123,13 @@ public class EquipoIdeal {
 			
 			@Override
 			protected void done() {
-				_equipo.notificarObservadores();
+				notificarObservadores();
 			}
 		}.execute();
+	}
+	
+	private void notificarObservadores() {
+		setChanged();
+		notifyObservers(_equipo.listar());
 	}
 }

@@ -12,7 +12,7 @@ import main.negocio.personas.MiembrosIncompatibles;
 import main.negocio.personas.Roles;
 import main.util.Utilidad.Objeto;
 
-public class EquipoIdeal extends SwingWorker<Boolean, Object> {
+public class EquipoIdeal {
 	private static EquipoIdeal _instancia = null;
 	
 	private Requisitos _requisitos;
@@ -27,10 +27,6 @@ public class EquipoIdeal extends SwingWorker<Boolean, Object> {
 	private EquipoIdeal() {
 		_miembrosDisponibles = MiembrosDisponibles.obtenerInstancia();
 		_miembrosIncompatibles = MiembrosIncompatibles.obtenerInstancia();
-		
-		_existenIncompatibles = _miembrosIncompatibles.listar().size() > 0;
-		
-		_equipo = new Equipo();
 	}
 	
 	public static EquipoIdeal obtenerInstancia() {
@@ -53,6 +49,10 @@ public class EquipoIdeal extends SwingWorker<Boolean, Object> {
 		return _requisitos;
 	}
 	
+	public Equipo obtenerEquipo() {
+		return _equipo;
+	}
+	
 	public boolean sePuedeEjecutar() {
 		return (!Objeto.esNulo(_requisitos) && _miembrosDisponibles.listar().size() > 0);
 	}
@@ -66,6 +66,10 @@ public class EquipoIdeal extends SwingWorker<Boolean, Object> {
 	}
 	
 	private void armarEquipo() {
+		_equipo = new Equipo();
+		
+		_existenIncompatibles = _miembrosIncompatibles.listar().size() > 0;
+		
 		buscarMiembros(Roles.TESTER, _requisitos.obtenerCantidadTesters(Cantidad.MAXIMA));
 		buscarMiembros(Roles.PROGRAMADOR, _requisitos.obtenerCantidadProgramadores(Cantidad.MAXIMA));
 		buscarMiembros(Roles.ARQUITECTO, _requisitos.obtenerCantidadArquitectos(Cantidad.MAXIMA));
@@ -96,11 +100,7 @@ public class EquipoIdeal extends SwingWorker<Boolean, Object> {
 		}
 	}
 	
-	@Override
-	protected Boolean doInBackground() throws Exception 
-	{
-		_equipo.vaciar();
-		
+	public void ejecutarAlgoritmo() {
 		armarEquipo();
 		
 		// Verificar si los requisitos fueron satisfechos
@@ -108,18 +108,29 @@ public class EquipoIdeal extends SwingWorker<Boolean, Object> {
 		
 		for (Roles rol : Roles.values()) {
 			long cantidadEnRol = _equipo.obtenerCantidadMiembrosEnRol(rol);
+
 			_equipoCumpleConRequisitos = _equipoCumpleConRequisitos && 
 										(
 												cantidadEnRol >= _requisitos.obtenerCantidadSegunRol(rol, Cantidad.MINIMA) &&
 												cantidadEnRol <= _requisitos.obtenerCantidadSegunRol(rol, Cantidad.MAXIMA)
 										);
 		}
-		
-		return _equipoCumpleConRequisitos;
 	}
 	
-	@Override 
-	protected void done( ) {
-		_equipo.notificarObservadores();
+	public void ejecutarAlgoritmoEnThread() {
+		new SwingWorker() {
+
+			@Override
+			protected Object doInBackground() throws Exception {
+				ejecutarAlgoritmo();
+				
+				return _equipoCumpleConRequisitos;
+			}
+			
+			@Override
+			protected void done() {
+				_equipo.notificarObservadores();
+			}
+		}.execute();
 	}
 }

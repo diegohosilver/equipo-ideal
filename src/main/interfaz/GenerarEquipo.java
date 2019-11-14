@@ -90,7 +90,7 @@ public class GenerarEquipo extends JInternalFrame implements Observer {
 					return;
 				}
 				
-				_equipoIdeal.execute();
+				_equipoIdeal.ejecutarAlgoritmoEnThread();
 			
 			}
 		}), "6, 6");

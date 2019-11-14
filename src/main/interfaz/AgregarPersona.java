@@ -100,7 +100,7 @@ public class AgregarPersona extends JInternalFrame {
 				agregarMiembro();
 			}
 			
-		}), "4, 10");
+		}), "6, 10");
 		
 		_panel.add(Boton.generar("Cancelar", new Dimensiones(0, 0, 0, 0), new ActionListener() {
 
@@ -109,7 +109,7 @@ public class AgregarPersona extends JInternalFrame {
 				setVisible(false);
 			}
 			
-		}), "6, 10");
+		}), "4, 10");
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })

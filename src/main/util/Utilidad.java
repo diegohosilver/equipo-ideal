@@ -35,6 +35,15 @@ public final class Utilidad {
 			}
 		}
 		
+		public static int aInt(String valor) {
+			try {
+				return Integer.parseInt(valor);
+			}
+			catch(Exception ex) {
+				return 0;
+			}
+		}
+		
 		public static void validarVacia(String texto) {
 			if (CadenaTexto.esVaciaONula(texto)) {
 				throw new IllegalArgumentException("Texto no puede estar vacio");

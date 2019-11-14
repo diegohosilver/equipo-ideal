@@ -63,4 +63,16 @@ public class EquipoTest {
 		assertEquals(1, equipo.obtenerCantidadMiembrosEnRol(Roles.TESTER));
 		assertEquals(1, equipo.obtenerCantidadMiembrosEnRol(Roles.LIDER_PROYECTO));
 	}
+	
+	@Test
+	public void listarTest() {
+		Equipo equipo = new Equipo();
+		
+		Miembro m = new Miembro(Roles.PROGRAMADOR, "Diego");
+		
+		equipo.agregarMiembro(m);
+		
+		assertEquals(1, equipo.listar().size());
+		assertEquals(m.obtenerId(), equipo.listar().get(0).obtenerId());
+	}
 }

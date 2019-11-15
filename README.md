@@ -67,7 +67,7 @@ Cuenta con los siguientes métodos públicos:
             * _Par inválido_.
             * _El mínimo no puede ser mayor al máximo_.
             * _El par no puede contener valores negativos_.
-            * _El equipo no puede estar vacio_
+            * _El equipo no puede estar vacio_.
 2. `int obtenerCantidadTotal(Cantidad)`: Devuelve la cantidad total de personas.
 3. `int obtenerCantidadTesters(Cantidad)`: Devuelve la cantidad de testers.
 3. `int obtenerCantidadProgramadores(Cantidad)`: Devuelve la cantidad de programadores.
@@ -139,10 +139,10 @@ Cuenta con los siguientes métodos públicos:
 8. `void vaciar()`: Limpia los miembros incompatibles.
 ##### `Roles`
 Es un `Enum`con los siguientes valores:
-- TESTER (Tester)
-- PROGRAMADOR (Programador)
-- ARQUITECTO (Arquitecto)
-- LIDER_PROYECTO (Lider de proyecto)
+- `TESTER` (Tester)
+- `PROGRAMADOR` (Programador)
+- `ARQUITECTO` (Arquitecto)
+- `LIDER_PROYECTO` (Lider de proyecto)
 
 Además cada valor cuenta con un nombre legible para el usuario (valores entre paréntesis).
 #### `interfaz`

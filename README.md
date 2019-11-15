@@ -22,6 +22,7 @@ Este repositorio contiene código fuente y consignas a realizar en Java
 Es un `Enum` con los siguientes valores:
 - `MINIMO`
 - `MAXIMO`
+
 Se utiliza como parámetro de filtro dentro de `Requisitos`.
 ##### `Equipo`
 Es una `Clase` que guarda los siguientes datos:

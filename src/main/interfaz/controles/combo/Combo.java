@@ -6,7 +6,8 @@ import java.util.List;
 import javax.swing.JComboBox;
 
 import main.interfaz.controles.general.Dimensiones;
-import main.interfaz.util.Varios;
+import main.util.Utilidad.Control;
+import main.util.Utilidad.Objeto;
 
 public class Combo {
 	
@@ -23,12 +24,12 @@ public class Combo {
 	}
 	
 	public static JComboBox generar(Dimensiones dimensiones, List<ComboItem> items, ActionListener evento) {
-		if (Varios.objetoEsNulo(items) || items.size() == 0) {
+		if (Objeto.esNulo(items) || items.size() == 0) {
 			throw new IllegalArgumentException("Proporcione algun item para inicializar el combo");
 		}
 		
-		Varios.validarEvento(evento);
-		Varios.validarDimensiones(dimensiones);
+		Control.validarEvento(evento);
+		Control.validarDimensiones(dimensiones);
 		
 		JComboBox combo = generarConItems(dimensiones, items);
 		

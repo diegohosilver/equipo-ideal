@@ -1,21 +1,19 @@
 package main.interfaz.controles;
-
 import javax.swing.JPanel;
 
 import main.interfaz.controles.general.Bordes;
 import main.interfaz.controles.general.Dimensiones;
-import main.interfaz.util.Varios;
+import main.util.Utilidad.Objeto;
 
 public class Panel {
-	
 	private static void validarDimensiones(Dimensiones dimensiones) {
-		if (Varios.objetoEsNulo(dimensiones)) {
+		if (Objeto.esNulo(dimensiones)) {
 			throw new IllegalArgumentException("Dimensiones no puede estar vacio");
 		}
 	}
 	
 	private static void validarBordes(Bordes bordes) {
-		if (Varios.objetoEsNulo(bordes)) {
+		if (Objeto.esNulo(bordes)) {
 			throw new IllegalArgumentException("Bordes no puede estar vacio");
 		}
 	}
@@ -44,5 +42,4 @@ public class Panel {
 		
 		return panel;
 	}
-
 }

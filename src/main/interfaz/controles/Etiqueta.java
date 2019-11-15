@@ -5,7 +5,8 @@ import java.awt.Font;
 import javax.swing.JLabel;
 
 import main.interfaz.controles.general.Dimensiones;
-import main.interfaz.util.Varios;
+import main.util.Utilidad.CadenaTexto;
+import main.util.Utilidad.Control;
 
 public class Etiqueta {
 
@@ -19,10 +20,10 @@ public class Etiqueta {
 	}
 	
 	public static JLabel generar(String texto, Dimensiones dimensiones) {	
-		Varios.validarTextoVacio(texto);	
-		Varios.validarDimensiones(dimensiones);
+		CadenaTexto.validarVacia(texto);	
+		Control.validarDimensiones(dimensiones);
 		
-		return generarEtiquetaConPropiedades(texto, dimensiones, Font.BOLD, 15F);
+		return generarEtiquetaConPropiedades(texto, dimensiones, Font.PLAIN, 12F);
 	}
 	
 }
